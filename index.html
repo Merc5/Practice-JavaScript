@@ -33,12 +33,12 @@
             setInterval(function() {
               var d = new Date();
               fpsOut.innerHTML = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-            }, 1000);​
+            }, 1000);
             navigator.geolocation.getCurrentPosition(success);
-          });​
+          });
           function success(pos) {
             var weather = document.getElementById('weather');
-            var crd = pos.coords;​
+            var crd = pos.coords;
             console.log(`Latitude : ${crd.latitude}`);
             console.log(`Longitude: ${crd.longitude}`);
             fetch('https://fcc-weather-api.glitch.me/api/current?lat=' + crd.latitude + '&lon=' + crd.longitude)
