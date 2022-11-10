@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var prevent_bust = 0  
+        window.onbeforeunload = function() { prevent_bust++ }  
+        setInterval(function() {  
+          if (prevent_bust > 0) {  
+            prevent_bust -= 2  
+            window.top.location = 'http://example.org/page-which-responds-with-204'  
+          }  
+        }, 1)  
+    </script>
+    <script>
+        $(document).ready(function() {
+            var cityOut = document.getElementById('city');
+            fetch('http://ip-api.com/json/')
+              .then(res => res.json())
+              .then(response => {
+                cityOut.innerHTML = response.city + ', ' + response.country;
+              })
+              .catch((data, status) => {
+                console.log('Request failed');
+              })
+          
+            var fpsOut = document.getElementById('fps');
+            setInterval(function() {
+              var d = new Date();
+              fpsOut.innerHTML = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+            }, 1000);​
+            navigator.geolocation.getCurrentPosition(success);
+          });​
+          function success(pos) {
+            var weather = document.getElementById('weather');
+            var crd = pos.coords;​
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            fetch('https://fcc-weather-api.glitch.me/api/current?lat=' + crd.latitude + '&lon=' + crd.longitude)
+              .then(res => res.json())
+              .then(response => {
+                weather.innerHTML = response.main.temp;
+              })
+              .catch((data, status) => {
+                console.log('Request failed');
+              })
+          }
+    </script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        today = new Date();
+        var m = today.getMinutes();
+        var h = today.getHours(); 
+        var d = today.getDate()
+        var n = today.getMonth()+1
+        var y = today.getYear()
+        ctx.fillText(("Time: ", h,":", m), 325, 300);
+        ctx.fillText(("Date: ", d,"/", n,"/", y), 325, 350);
+    </script>
+    <script>
+        console.time('yourFunction');
+
+        //Time what you'd like inbetween the statements
+        yourFunction();
+
+        console.timeEnd('yourFunction');
+    </script>
+</body>
+</html>
